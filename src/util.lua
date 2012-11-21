@@ -13,6 +13,66 @@ local function wrap(max, min, i)
    end
 end
 
+function M.range(min, max, step)
+
+   assert(type(max) == "number",
+	  "Parameter max must be a number!")
+
+   assert(type(min) == "number",
+	  "Parameter min must be a number!")
+
+   assert(type(step) == "nil" or type(step) == "number",
+	  "Parameter step must be nil or a number!")
+
+   assert(min < max,
+	  "Parameter min must be smaller than parameter max!")
+
+   local idx = 1
+   local result = {n=0 }
+
+   for i=min,max,step or 1 do
+      result[idx] = i
+      result.n = result.n + 1
+      idx = idx + 1
+   end
+
+   return result
+
+end
+
+function M.makeToggleItem(target, property, prefix, ...)
+
+   assert(target and type(target) == "table",
+	  "Parameter target must be table!")
+
+   assert(property,
+	   "Parameter property cannot be nil!")
+
+   assert(arg.n and arg.n > 0,
+	  "At least one option must be provided!")
+
+   local position = 1
+
+   local function getLabel()
+      return prefix .. ": " .. arg[position]
+   end
+
+   local function action()
+      position = wrap(arg.n, 1, position + 1)
+      target[property] = arg[position]
+   end
+
+   return { getLabel, action }
+
+end
+
+function M.makeRangeItem(target, property, prefix, min, max, step)
+
+   return M.makeToggleItem(target, property, prefix,
+			   unpack(M.range(min, max, step)))
+
+end
+
 function M.makeMenu(prevState, ...)
 
    local menu = state.State:new(
@@ -61,7 +121,10 @@ function M.makeMenu(prevState, ...)
 	 elseif menu.zDown then
 	    local item = menu.options[menu.selected]
 	    menu.zDown = false
-	    return item.action(menu)
+
+	    if item.action then
+	       return item.action(menu)
+	    end
 	 end
       end
 
@@ -85,7 +148,11 @@ function M.makeMenu(prevState, ...)
       end
    end
 
-   return menu
+   if prevState then
+      return state.TransitionState:new(prevState, menu)
+   else
+      return menu
+   end
 
 end
 
