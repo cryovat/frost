@@ -81,3 +81,9 @@ function love.draw()
    love.graphics.setColor(255,255,255,255)
    gs:draw(255)
 end
+
+function love.keypressed(key, u)
+   if key == "rctrl" then
+      debug.debug()
+   end
+end
