@@ -1,57 +1,55 @@
-require "state"
-require "math"
+state = require "state"
+math = require "math"
 
-if not frost or not frost.util then
+local M = {}
 
-   local p = {}
+local function wrap(max, min, i)
+   if i > max then
+      return min
+   elseif i < min then
+      return max
+   else
+      return i
+   end
+end
 
-   function wrap(max, min, i)
-      if i > max then
-	 return min
-      elseif i < min then
-	 return max
-      else
-	 return i
-      end
+function M.makeMenu(prevState, ...)
+
+   local menu = state.State:new(
+      {
+	 options = { n = arg.n },
+	 selected = 1,
+	 counter = 0,
+	 x = 0,
+	 y = 0,
+	 zDown = false
+      })
+
+   for i = 1, arg.n do
+      local item = arg[i]
+
+      menu.options[i] = {
+	 label = item[1],
+	 action = item[2]
+      }
    end
 
-   function p.makeMenu(prevState, ...)
+   menu.x = (love.graphics.getWidth() / 2) - 100
+   menu.y = (love.graphics.getHeight() / 2) - ((menu.options.n / 2) * 20)
 
-      local menu = frost.state.State:new(
-	 {
-	    options = { n = arg.n },
-	    selected = 1,
-	    counter = 0,
-	    x = 0,
-	    y = 0,
-	    zDown = false
-	 })
+   if prevState then
+      menu.options[menu.options.n + 1] = {
+	 label = "Return",
+	 action = function()
+	    return prevState
+	 end
+      }
+      menu.options.n = menu.options.n + 1
+   end
 
-      for i = 1, arg.n do
-	 local item = arg[i]
-
-	 menu.options[i] = {
-	    label = item[1],
-	    action = item[2]
-	 }
-      end
-
-      menu.x = (love.graphics.getWidth() / 2) - 100
-      menu.y = (love.graphics.getHeight() / 2) - ((menu.options.n / 2) * 20)
-
-      if prevState then
-	 menu.options[menu.options.n + 1] = {
-	    label = "Return",
-	    action = function()
-	       return prevState
-	    end
-	 }
-	 menu.options.n = menu.options.n + 1
-      end
-
-      function menu:update(e)
-	 if menu.counter > 0 then
-	    menu.counter = gs.counter - e
+   function menu:update(e)
+      if menu.counter > 0 then
+	 menu.counter = gs.counter - e
 	 elseif love.keyboard.isDown("up") then
 	    menu.counter = 0.25
 	    menu.selected = wrap(menu.options.n, 1, menu.selected - 1)
@@ -67,31 +65,28 @@ if not frost or not frost.util then
 	 end
       end
 
-      function menu:draw(alpha)
+   function menu:draw(alpha)
 
-	 for i = 1,menu.options.n do
-	    local item = menu.options[i]
-	    local label = item.label
+      for i = 1,menu.options.n do
+	 local item = menu.options[i]
+	 local label = item.label
 
-	    if type(label) == "function" then
-	       label = label()
-	    end
-
-	    if i == menu.selected then
-	       love.graphics.setColor(0, 255, 255, alpha)
-	    else
-	       love.graphics.setColor(255,255,255, math.min(alpha,150))
-	    end
-
-	    love.graphics.printf(label, menu.x, menu.y + (i * 20), 200, "center")
+	 if type(label) == "function" then
+	    label = label()
 	 end
+
+	 if i == menu.selected then
+	    love.graphics.setColor(0, 255, 255, alpha)
+	 else
+	    love.graphics.setColor(255,255,255, math.min(alpha,150))
+	 end
+
+	 love.graphics.printf(label, menu.x, menu.y + (i * 20), 200, "center")
       end
-
-      return menu
-
    end
 
-   frost = frost or {}
-   frost.util= p
+   return menu
 
 end
+
+return M

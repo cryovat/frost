@@ -1,20 +1,17 @@
-if not frost then frost = {} end
-if not frost.assets then frost.assets = {} end
+local state = require "state"
+local util = require "util"
 
-require "state"
-require "util"
+local a = {}
 
-local state, util = frost.state, frost.util
-
-function newGame()
+local function newGame()
    error "Game not implemented"
 end
 
-function quit()
+local function quit()
    love.event.push("quit")
 end
 
-function options(prev)
+local function options(prev)
 
    local counter, label = 0, "Continues: None"
 
@@ -33,7 +30,7 @@ function options(prev)
 
 end
 
-function credits(prev)
+local function credits(prev)
 
    function void()
    end
@@ -43,7 +40,7 @@ function credits(prev)
 		       )
 end
 
-function mainMenu(prev)
+local function mainMenu(prev)
 
    return util.makeMenu(nil,
 			{ "New Game", mainMenu },
@@ -55,7 +52,6 @@ function mainMenu(prev)
 end
 
 function love.load()
-   local a = frost.assets
    a.bg = love.graphics.newImage("gfx/winter.png")
    love.graphics.setMode(640,480,false,false,4)
    gs = state.fadeIn(mainMenu(nil), 1)
@@ -69,6 +65,6 @@ end
 
 function love.draw()
    love.graphics.setColor(255,255,255,alpha)
-   love.graphics.draw(frost.assets.bg, 0, 0)
+   love.graphics.draw(a.bg, 0, 0)
    gs:draw(255)
 end
