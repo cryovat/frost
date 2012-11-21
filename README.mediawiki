@@ -2,4 +2,4 @@
 
 A desperate attempt at learning [http://www.lua.org Lua] and [http://www.love2d.org Love2D] in a couple of days before a game workshop. :-)
 
-Graphics come from the [http://www.spicypixel.net SpicyPixel] [http://www.spicypixel.net/2008/01/10/gfxlib-fuzed-a-free-developer-graphic-library/ GfxLib-Fuzed] royalty free graphics collection. These are subject to the [http://opensource.org/licenses/cpl1.0.php Common Public License].
+Graphics in src/gfx/external/ come from the [http://www.spicypixel.net SpicyPixel] [http://www.spicypixel.net/2008/01/10/gfxlib-fuzed-a-free-developer-graphic-library/ GfxLib-Fuzed] royalty free graphics collection. These are subject to the [http://opensource.org/licenses/cpl1.0.php Common Public License].
