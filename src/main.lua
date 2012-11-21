@@ -58,7 +58,7 @@ function love.load()
    local a = frost.assets
    a.bg = love.graphics.newImage("gfx/winter.png")
    love.graphics.setMode(640,480,false,false,4)
-   gs = mainMenu(nil)
+   gs = state.fadeIn(mainMenu(nil), 1)
 end
 
 function love.update(e)
@@ -68,7 +68,7 @@ function love.update(e)
 end
 
 function love.draw()
-   love.graphics.setColor(255,255,255,255)
+   love.graphics.setColor(255,255,255,alpha)
    love.graphics.draw(frost.assets.bg, 0, 0)
-   gs:draw()
+   gs:draw(255)
 end

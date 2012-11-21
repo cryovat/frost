@@ -1,4 +1,5 @@
 require "state"
+require "math"
 
 if not frost or not frost.util then
 
@@ -66,7 +67,8 @@ if not frost or not frost.util then
 	 end
       end
 
-      function menu:draw()
+      function menu:draw(alpha)
+
 	 for i = 1,menu.options.n do
 	    local item = menu.options[i]
 	    local label = item.label
@@ -76,9 +78,9 @@ if not frost or not frost.util then
 	    end
 
 	    if i == menu.selected then
-	       love.graphics.setColor(0, 255, 255, 255)
+	       love.graphics.setColor(0, 255, 255, alpha)
 	    else
-	       love.graphics.setColor(255,255,255,150)
+	       love.graphics.setColor(255,255,255, math.min(alpha,150))
 	    end
 
 	    love.graphics.printf(label, menu.x, menu.y + (i * 20), 200, "center")
