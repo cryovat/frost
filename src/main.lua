@@ -100,8 +100,34 @@ function love.draw()
    love.graphics.draw(a.batch)
 end
 
+function love.mousepressed(x, y, button)
+   if gs and gs.mousepressed then
+      gs:mousepressed(x, y, button)
+   end
+end
+
+function love.mousereleased(x, y, button)
+   if gs and gs.mousepressed then
+      gs:mousepressed(x, y, button)
+   end
+end
+
 function love.keypressed(key, u)
    if key == "rctrl" then
       debug.debug()
+   elseif gs and gs.keypressed then
+      gs:keypressed(key, u)
+   end
+end
+
+function love.keyreleased(key, u)
+   if gs and gs.keyreleased then
+      gs:keyreleased(key, u)
+   end
+end
+
+function love.focus(f)
+   if gs and gs.focus then
+      gs:focus(f)
    end
 end

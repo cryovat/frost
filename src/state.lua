@@ -12,11 +12,24 @@ function M.State:new(o)
 end
 
 function M.State:update(elapsed)
-   return
 end
 
 function M.State:draw(alpha)
-   return
+end
+
+function M.State:mousepressed(x,y,button)
+end
+
+function M.State:mousereleased(x,y,button)
+end
+
+function M.State:keypressed(key, unicode)
+end
+
+function M.State:keyreleased(key, unicode)
+end
+
+function M.State:focus(f)
 end
 
 M.TransitionState = M.State:new()
