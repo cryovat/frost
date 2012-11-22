@@ -52,9 +52,27 @@ function M.makeToggleItem(target, property, prefix, ...)
 	  "At least one option must be provided!")
 
    local position = 1
+   local lastLabel, lastValue = nil, nil
 
    local function getLabel()
-      return prefix .. ": " .. arg[position]
+
+      local value = arg[position]
+
+      if lastValue == value then
+	 return lastLabel
+      else
+	 lastValue = value
+
+	 if value == true then
+	    value = "On"
+	 elseif value == false then
+	    value = "Off"
+	 end
+
+	 lastLabel = prefix .. ":" .. value
+
+	 return lastLabel
+      end
    end
 
    local function action()
@@ -70,6 +88,12 @@ function M.makeRangeItem(target, property, prefix, min, max, step)
 
    return M.makeToggleItem(target, property, prefix,
 			   unpack(M.range(min, max, step)))
+
+end
+
+function M.makeBooleanItem(target, property, prefix)
+
+   return M.makeToggleItem(target, property, prefix, true, false)
 
 end
 

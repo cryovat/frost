@@ -1,12 +1,9 @@
 local state = require "state"
 local util = require "util"
 local sprite = require "sprite"
+local opt = require "options"
 
 a = {}
-local settings = {
-   difficulty="Easy",
-   continues=1
-}
 
 local function newGame()
    error "Game not implemented"
@@ -18,13 +15,9 @@ end
 
 local function options(prev)
 
-   local diffItem = util.makeToggleItem(settings, "difficulty", "Difficulty",
-					"Easy", "Medium", "Hard")
+   local optItems = a.options:createMenuItems()
 
-   local contItem = util.makeRangeItem(settings, "continues", "Continues",
-				       1, 5)
-
-   return util.makeMenu(prev, diffItem, contItem)
+   return util.makeMenu(prev, unpack(optItems))
 
 end
 
@@ -47,6 +40,15 @@ local function mainMenu(prev)
 end
 
 function love.load()
+
+   local o = opt.Options:new()
+   o:addBoolean("musicOn", "Music enabled", true)
+   o:addBoolean("soundOn", "Sound effects enabled", true)
+   o:addNumber("conts", "Continues", 1, 1, 5, 1)
+   o:addList("diff", "Difficulty", "Easy", "Easy", "Medium", "Hard")
+   o:addList("color", "Player color", "green", "red", "blue")
+   a.options = o
+
    a.bg = love.graphics.newImage("gfx/external/winter.png")
    a.dude = love.graphics.newImage("gfx/external/dynamiteguy.png")
 
