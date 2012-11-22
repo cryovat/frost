@@ -30,17 +30,6 @@ function M.Atlas:new(imageWidth, imageHeight, countX, countY, o)
 	    imageWidth,
 	    imageHeight)
 
-
-	 print("x: " ..
-	       (o.tileWidth * x) ..
-	       " y: " ..
-	       (o.tileHeight * y) ..
-	       " w: " ..
-	       o.tileWidth ..
-	       "h: " ..
-	       o.tileHeight)
-
-
 	 i = i + 1
       end
    end
@@ -95,9 +84,6 @@ function M.Sprite:new(atlas, o)
 
    o.atlas = atlas
    o:setAnim("default")
---   o.counter = 0
---   o.current = 1
---   o.currentSeq = atlas:getSeq("default")
 
    local tileW, tileH = atlas:getTileSize()
 
