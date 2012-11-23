@@ -180,4 +180,37 @@ function M.makeMenu(prevState, ...)
 
 end
 
+function M.loadLevel(file)
+
+   local f, level = require(file), nil
+
+   assert(type(f) == "table" and type(f["new"]) == "function",
+	  "Expected '" .. file .. "' to return a State 'class'")
+
+   level = f:new()
+   level:load()
+
+   return level
+
+end
+
+function M.newLevel()
+
+   local level = state.State:new()
+
+   function level:new(o)
+      o = o or {}
+      setmetatable(o, level)
+      self.__index = self
+
+      return o
+   end
+
+   function level:load()
+   end
+
+   return level
+
+end
+
 return M

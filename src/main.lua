@@ -5,8 +5,10 @@ local opt = require "options"
 
 a = {}
 
-local function newGame()
-   error "Game not implemented"
+local function newGame(prev)
+
+   return util.loadLevel "level/test"
+
 end
 
 local function quit()
@@ -31,7 +33,7 @@ end
 local function mainMenu(prev)
 
    return util.makeMenu(nil,
-			{ "New Game", mainMenu },
+			{ "New Game", newGame },
 			{ "Options", options },
 			{ "Credits", credits },
 			{ "Quit", quit }
@@ -50,11 +52,9 @@ function love.load()
    a.options = o
 
    a.bg = love.graphics.newImage("gfx/external/winter.png")
-   a.dude = love.graphics.newImage("gfx/external/dynamiteguy.png")
 
    a.flake = love.graphics.newImage("gfx/snowflake.png")
    a.snow = love.graphics.newParticleSystem(a.flake, 100)
-   a.batch = love.graphics.newSpriteBatch(a.dude)
 
    a.snow:setEmissionRate(1)
    a.snow:setLifetime(-1)
@@ -67,19 +67,12 @@ function love.load()
    a.snow:setSpeed(10, 0)
    a.snow:start()
 
-   a.atlas = sprite.Atlas:new(a.dude:getWidth(),a.dude:getHeight(),4,1)
-   a.atlas:addSeq("boom",1,1,2,3,4)
-
-   a.dudeSprite = sprite.Sprite:new(a.atlas)
-   a.dudeSprite:setAnim("boom")
-
    love.graphics.setMode(640,480,false,false,4)
    gs = state.fadeIn(mainMenu(nil), 1)
 end
 
 function love.update(e)
    a.snow:update(e)
-   a.dudeSprite:update(e)
 
    local nextState = gs:update(e)
 
@@ -95,9 +88,6 @@ function love.draw()
    gs:draw(255)
 
    love.graphics.setColor(255,255,255,255)
-   a.batch:clear()
-   a.dudeSprite:draw(a.batch, 50, 50, 0, 2)
-   love.graphics.draw(a.batch)
 end
 
 function love.mousepressed(x, y, button)
@@ -112,17 +102,17 @@ function love.mousereleased(x, y, button)
    end
 end
 
-function love.keypressed(key, u)
+function love.keypressed(key, unicode)
    if key == "rctrl" then
       debug.debug()
    elseif gs and gs.keypressed then
-      gs:keypressed(key, u)
+      gs:keypressed(key, unicode)
    end
 end
 
-function love.keyreleased(key, u)
+function love.keyreleased(key, unicode)
    if gs and gs.keyreleased then
-      gs:keyreleased(key, u)
+      gs:keyreleased(key, unicode)
    end
 end
 
