@@ -4,6 +4,7 @@ local M = {}
 
 M.Atlas = require "fw.graphics.Atlas"
 M.Sprite = require "fw.graphics.Sprite"
+M.TileMap = require "fw.graphics.TileMap"
 
 --- Creates a new Atlas instance
 -- @param imageWidth Width of target image
@@ -23,7 +24,7 @@ function M.newSprite(atlas, o)
 end
 
 --- Returns a function that creates new Sprites with the specified atlas
--- @param The atlas parameter for the new Sprite
+-- @param atlas The atlas parameter for the new Sprite
 function M.makeSpriteFactory(atlas)
    return function()
       return M.newSprite(atlas)
