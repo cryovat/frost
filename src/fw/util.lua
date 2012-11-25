@@ -1,4 +1,5 @@
-state = require "fw.state"
+State = require "fw.State"
+TransitionState = require "fw.TransitionState"
 math = require "math"
 
 local M = {}
@@ -99,7 +100,7 @@ end
 
 function M.makeMenu(prevState, ...)
 
-   local menu = state.State:new(
+   local menu = State.new(
       {
 	 options = { n = arg.n },
 	 selected = 1,
@@ -173,7 +174,7 @@ function M.makeMenu(prevState, ...)
    end
 
    if prevState then
-      return state.TransitionState:new(prevState, menu)
+      return TransitionState.new(prevState, menu)
    else
       return menu
    end
@@ -196,7 +197,7 @@ end
 
 function M.newLevel()
 
-   local level = state.State:new()
+   local level = State.new()
 
    function level:new(o)
       o = o or {}

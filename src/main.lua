@@ -1,7 +1,5 @@
 local fw = require("fw.init")
-local state = fw.state
 local util = fw.util
-local opt = fw.options
 
 a = {}
 
@@ -43,7 +41,7 @@ end
 
 function love.load()
 
-   local o = opt.Options:new()
+   local o = fw.newOptions()
    o:addBoolean("musicOn", "Music enabled", true)
    o:addBoolean("soundOn", "Sound effects enabled", true)
    o:addNumber("conts", "Continues", 1, 1, 5, 1)
@@ -68,7 +66,7 @@ function love.load()
    a.snow:start()
 
    love.graphics.setMode(640,480,false,false,4)
-   gs = state.fadeIn(mainMenu(nil), 1)
+   gs = fw.fadeIn(mainMenu(nil), 1)
 end
 
 function love.update(e)

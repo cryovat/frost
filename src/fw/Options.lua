@@ -1,19 +1,17 @@
 local util = require("fw.util")
 
-local M = {}
+local Options = {}
 
-M.Options = {}
-
-function M.Options:new(o)
+function Options.new(o)
    o = o or {}
-   setmetatable(o,self)
-   self.__index = self
-   self.items = {}
+   setmetatable(o,Options)
+   Options.__index = Options
+   o.items = {}
 
    return o
 end
 
-function M.Options:addBoolean(id, label, default)
+function Options:addBoolean(id, label, default)
 
    self.items[id] = {
       type="boolean",
@@ -23,7 +21,7 @@ function M.Options:addBoolean(id, label, default)
 
 end
 
-function M.Options:addNumber(id, label, default, min, max, step)
+function Options:addNumber(id, label, default, min, max, step)
 
    self.items[id] = {
       type="number",
@@ -36,7 +34,7 @@ function M.Options:addNumber(id, label, default, min, max, step)
 
 end
 
-function M.Options:addList(id, label, default, ...)
+function Options:addList(id, label, default, ...)
 
    self.items[id] = {
       type="list",
@@ -47,7 +45,7 @@ function M.Options:addList(id, label, default, ...)
 
 end
 
- function M.Options:get(id)
+ function Options:get(id)
 
    local s = self.items[id]
 
@@ -57,7 +55,7 @@ end
 
 end
 
-function M.Options:createMenuItems()
+function Options:createMenuItems()
 
    local menuItems, i = {}, 1
 
@@ -80,4 +78,4 @@ function M.Options:createMenuItems()
 
 end
 
-return M
+return Options
