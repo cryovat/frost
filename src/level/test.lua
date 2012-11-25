@@ -11,7 +11,7 @@ function level:load()
    dude = love.graphics.newImage("gfx/external/dynamiteguy.png")
    batch = love.graphics.newSpriteBatch(dude)
 
-   atlas = s.Atlas:new(dude:getWidth(), dude:getHeight(), 4, 1)
+   atlas = s.Atlas.new(dude:getWidth(), dude:getHeight(), 4, 1)
    atlas:addSeq("boom", 1, 1,2,3,4)
 
    sprite = s.Sprite:new(atlas)
