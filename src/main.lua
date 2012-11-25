@@ -65,7 +65,6 @@ function love.load()
    a.snow:setSpeed(10, 0)
    a.snow:start()
 
-   love.graphics.setMode(640,480,false,false,4)
    gs = fw.gamestate.fadeIn(mainMenu(nil), 1)
 end
 
