@@ -1,7 +1,8 @@
-local state = require "state"
-local util = require "util"
-local sprite = require "sprite"
-local opt = require "options"
+local fw = require("fw.init")
+local state = fw.state
+local util = fw.util
+local sprite = fw.sprite
+local opt = fw.options
 
 a = {}
 

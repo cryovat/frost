@@ -1,4 +1,5 @@
-local u = require "../util"
+local fw = require "fw.init"
+local u = fw.util
 
 local level = u.newLevel()
 

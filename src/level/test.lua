@@ -1,5 +1,6 @@
-local u = require "../util"
-local s = require "../sprite"
+local fw = require "fw.init"
+local u = fw.util
+local s = fw.sprite
 
 local level = u.newLevel()
 

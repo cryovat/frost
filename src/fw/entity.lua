@@ -45,11 +45,11 @@ function M.Entity:setPos(x, y)
    self.x, self.y = x,y
 end
 
-function M.entity:setSpeed(speedX,speedY)
+function M.Entity:setSpeed(speedX,speedY)
    self.speedX, self.speedY = speedX, speedY
 end
 
-function M.entity:getSpeed()
+function M.Entity:getSpeed()
    return self.speedX, self.speedY
 end
 
