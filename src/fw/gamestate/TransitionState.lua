@@ -1,4 +1,4 @@
-local state = require "fw.State"
+local state = require "fw.gamestate.State"
 
 TransitionState = state.new()
 

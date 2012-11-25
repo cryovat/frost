@@ -1,6 +1,6 @@
 local fw = require "fw.init"
 
-local level = fw.newLevel()
+local level = fw.gamestate.newLevel()
 
 function level:load()
 
@@ -9,10 +9,10 @@ function level:load()
    dude = love.graphics.newImage("gfx/external/dynamiteguy.png")
    batch = love.graphics.newSpriteBatch(dude)
 
-   atlas = fw.newAtlas(dude:getWidth(), dude:getHeight(), 4, 1)
+   atlas = fw.graphics.newAtlas(dude:getWidth(), dude:getHeight(), 4, 1)
    atlas:addSeq("boom", 1, 1,2,3,4)
 
-   sprite = fw.newSprite(atlas)
+   sprite = fw.graphics.newSprite(atlas)
 
    sprite:setAnim("boom")
 

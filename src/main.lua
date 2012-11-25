@@ -5,7 +5,7 @@ a = {}
 
 local function newGame(prev)
 
-   return fw.loadLevel "level/test"
+   return fw.gamestate.loadLevel "level/test"
 
 end
 
@@ -66,7 +66,7 @@ function love.load()
    a.snow:start()
 
    love.graphics.setMode(640,480,false,false,4)
-   gs = fw.fadeIn(mainMenu(nil), 1)
+   gs = fw.gamestate.fadeIn(mainMenu(nil), 1)
 end
 
 function love.update(e)

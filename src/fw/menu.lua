@@ -1,5 +1,4 @@
-State = require "fw.State"
-TransitionState = require "fw.TransitionState"
+gamestate = require "fw.gamestate"
 math = require "math"
 
 local M = {}
@@ -100,7 +99,7 @@ end
 
 function M.makeMenu(prevState, ...)
 
-   local menu = State.new(
+   local menu = gamestate.newState(
       {
 	 options = { n = arg.n },
 	 selected = 1,
@@ -174,7 +173,7 @@ function M.makeMenu(prevState, ...)
    end
 
    if prevState then
-      return TransitionState.new(prevState, menu)
+      return gamestate.transition(prevState, menu)
    else
       return menu
    end

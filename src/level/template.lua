@@ -1,6 +1,6 @@
 local fw = require "fw.init"
 
-local level = fw.newLevel()
+local level = fw.gamestate.newLevel()
 
 -- Unused functions can be safely removed below
 
