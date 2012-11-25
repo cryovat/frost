@@ -1,14 +1,14 @@
 local math = require "math"
 
-local M = {}
+local Sprite = {}
 
-function M.new(atlas, o)
+function Sprite.new(atlas, o)
 
    assert(atlas, "Parameter atlas cannot be nil!")
 
    o = o or {}
-   setmetatable(o,M)
-   M.__index = M
+   setmetatable(o,Sprite)
+   Sprite.__index = Sprite
 
    o.atlas = atlas
    o:setAnim("default")
@@ -22,13 +22,13 @@ function M.new(atlas, o)
 
 end
 
-function M:setAnim(id)
+function Sprite:setAnim(id)
    self.counter = 0
    self.current = 1
    self.currentSeq = self.atlas:getSeq(id)
 end
 
-function M:update(e)
+function Sprite:update(e)
 
    self.counter = self.counter + e
 
@@ -46,9 +46,9 @@ function M:update(e)
 
 end
 
-function M:draw(batch, x,  y, r, s)
+function Sprite:draw(batch, x,  y, r, s)
    local q = self.currentSeq[self.current]
    return batch:addq(q, x, y, r, s, s, self.originX, self.originY, 0, 0)
 end
 
-return M
+return Sprite

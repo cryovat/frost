@@ -1,10 +1,10 @@
-M = {}
+Atlas = {}
 
-function M.new(imageWidth, imageHeight, countX, countY, o)
+function Atlas.new(imageWidth, imageHeight, countX, countY, o)
 
    o = o or {}
-   setmetatable(o,M)
-   M.__index = M
+   setmetatable(o,Atlas)
+   Atlas.__index = Atlas
 
    o.n = countX * countY
    o.imageWidth = imageWidth
@@ -36,19 +36,19 @@ function M.new(imageWidth, imageHeight, countX, countY, o)
 
 end
 
-function M:getImageSize()
+function Atlas:getImageSize()
    return self.imageWidth, self.imageHeight
 end
 
-function M:getTileSize()
+function Atlas:getTileSize()
    return self.tileWidth, self.tileHeight
 end
 
-function M:getSeq(id)
+function Atlas:getSeq(id)
    return self.sequences[id]
 end
 
-function M:addSeq(id, tick, ...)
+function Atlas:addSeq(id, tick, ...)
 
    assert(id, "Parameter id cannot be nil!")
    assert(type(tick) == "number" and tick > 0,
@@ -68,4 +68,4 @@ function M:addSeq(id, tick, ...)
 
 end
 
-return M
+return Atlas
