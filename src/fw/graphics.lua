@@ -31,4 +31,14 @@ function M.makeSpriteFactory(atlas)
    end
 end
 
+--- Creates a TileMap instance
+-- @param atlas The texture atlas to use as tile source
+-- @param image The image to use for drawing
+-- @param width The width of the tile map
+-- @param height The height of the tile map
+-- @param o (optional) Table to create instance from
+function M.newTileMap(atlas, image, width, height, o)
+   return M.TileMap.new(atlas, image, width, height, o)
+end
+
 return M

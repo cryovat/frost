@@ -87,4 +87,17 @@ function Atlas:addSeq(id, tick, ...)
 
 end
 
+--- Gets the first quad in the atlas
+-- @return The first quad in the atlas
+function Atlas:getDefaultQuad()
+   return self.quads[1]
+end
+
+--- Gets a single quad
+-- @param id The id of the quad
+-- @return A Quad, or nil if invalid id
+function Atlas:getQuad(id)
+   return self.quads[id]
+end
+
 return Atlas
