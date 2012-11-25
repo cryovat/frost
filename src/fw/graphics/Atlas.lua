@@ -1,5 +1,13 @@
+--- Texture atlas for handling tilesets and animation sequences
+
 Atlas = {}
 
+--- Creates an Atlas instance
+-- @param imageWidth Width of target image
+-- @param imageHeight Height of target image
+-- @param countX Number of horizontal tiles
+-- @param countY Number of vertical tiles
+-- @param o (optional) Table to create instance from
 function Atlas.new(imageWidth, imageHeight, countX, countY, o)
 
    o = o or {}
@@ -36,18 +44,29 @@ function Atlas.new(imageWidth, imageHeight, countX, countY, o)
 
 end
 
+--- Gets the size of the target image
+-- @return Width and height in pixels
 function Atlas:getImageSize()
    return self.imageWidth, self.imageHeight
 end
 
+--- Gets the size of a tile
+-- @return Width and height in pixels
 function Atlas:getTileSize()
    return self.tileWidth, self.tileHeight
 end
 
+--- Gets an animation sequence
+-- @param id The id of the sequence
+-- @return The animation sequence (or nil if unknown)
 function Atlas:getSeq(id)
    return self.sequences[id]
 end
 
+--- Adds an animation sequence
+-- @param id The id of the sequence
+-- @param tick Time in seconds per frame
+-- @param ... A list of frame indices
 function Atlas:addSeq(id, tick, ...)
 
    assert(id, "Parameter id cannot be nil!")

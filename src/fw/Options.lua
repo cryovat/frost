@@ -1,7 +1,11 @@
+--- Class for managing game options
+
 local menu = require("fw.menu")
 
 local Options = {}
 
+--- Creates an Options instance
+-- @param o (optional) Table to create instance from
 function Options.new(o)
    o = o or {}
    setmetatable(o,Options)
@@ -11,6 +15,10 @@ function Options.new(o)
    return o
 end
 
+--- Adds a boolean option
+-- @param id The id of the option
+-- @param label The label to show in menus
+-- @param default The default value (true or false)
 function Options:addBoolean(id, label, default)
 
    self.items[id] = {
@@ -21,6 +29,14 @@ function Options:addBoolean(id, label, default)
 
 end
 
+--- Adds a numeric option. The user is expected to ensure that the default
+-- falls into the valid range.
+-- @param id The id of the option
+-- @param label The label to show in menus
+-- @param default The default value
+-- @param min The minimum value
+-- @param max The maximum value
+-- @param step Incremental step
 function Options:addNumber(id, label, default, min, max, step)
 
    self.items[id] = {
@@ -34,6 +50,12 @@ function Options:addNumber(id, label, default, min, max, step)
 
 end
 
+--- Adds an option based on a list. The user is expected to ensure that the
+-- default is a member of the list
+-- @param id The id of the option
+-- @param label The label to show in menus
+-- @param default The default value
+-- @param ... All valid choices
 function Options:addList(id, label, default, ...)
 
    self.items[id] = {
@@ -45,7 +67,11 @@ function Options:addList(id, label, default, ...)
 
 end
 
- function Options:get(id)
+
+--- Gets the current value of an option
+-- @param id The id of the option
+-- @return The current value
+function Options:get(id)
 
    local s = self.items[id]
 
@@ -55,6 +81,9 @@ end
 
 end
 
+--- Creates a State instance with user interface for manipulating the values
+-- of the options.
+-- @return A State instance
 function Options:createMenuItems()
 
    local menuItems, i = {}, 1

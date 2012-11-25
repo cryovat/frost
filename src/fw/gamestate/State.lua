@@ -1,4 +1,4 @@
---- Contains the State and TransitionState types
+--- Represents the state of the game at a given time
 
 math = require "math"
 

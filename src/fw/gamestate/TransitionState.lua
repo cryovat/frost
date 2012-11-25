@@ -1,3 +1,5 @@
+--- A state that represents a transition between two other states
+
 local state = require "fw.gamestate.State"
 
 TransitionState = state.new()
@@ -26,6 +28,9 @@ function TransitionState.new(old, new, duration, o)
    return o
 end
 
+
+--- Updates the transitional state
+-- @param elapsed Elapsed time in seconds since last update
 function TransitionState:update(elapsed)
    self.timer = self.timer + elapsed
    if self.timer > self.duration then
@@ -33,6 +38,8 @@ function TransitionState:update(elapsed)
    end
 end
 
+--- Draws the state
+-- @param alpha Alpha value used for drawing
 function TransitionState:draw(alpha)
    local position = math.max(0, math.min(self.timer / self.duration, 1))
 

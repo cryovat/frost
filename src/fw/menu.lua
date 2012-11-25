@@ -1,3 +1,5 @@
+--- Utilities for creating in-game menus
+
 gamestate = require "fw.gamestate"
 math = require "math"
 
@@ -40,6 +42,13 @@ local function range(min, max, step)
 
 end
 
+--- Creates a menu item that cycles between a list of values and writes the
+-- current selection to a target table.
+-- @param target The target table
+-- @param property The id of the item in the table to read/update
+-- @param prefix The prefix of the value in the menu
+-- @param ... All valid choices
+-- @return A menu item
 function M.makeToggleItem(target, property, prefix, ...)
 
    assert(target and type(target) == "table",
@@ -84,6 +93,14 @@ function M.makeToggleItem(target, property, prefix, ...)
 
 end
 
+--- Creates a menu item that cycles through a numeric range and writes the
+-- current selection to a target table.
+-- @param target The target table
+-- @param property The id of the item in the table to read/update
+-- @param prefix The prefix of the value in the menu
+-- @param min The minimum value
+-- @param max The maximum value
+-- @param step Incremental step
 function M.makeRangeItem(target, property, prefix, min, max, step)
 
    return M.makeToggleItem(target, property, prefix,
@@ -91,12 +108,23 @@ function M.makeRangeItem(target, property, prefix, min, max, step)
 
 end
 
+--- Creates a menu item that toggles a boolean value and writes the
+-- current selection to a target table.
+-- @param target The target table
+-- @param property The id of the item in the table to read/update
+-- @param prefix The prefix of the value in the menu
 function M.makeBooleanItem(target, property, prefix)
 
    return M.makeToggleItem(target, property, prefix, true, false)
 
 end
 
+--- Creates a State instance that provides an interactive menu to the user
+-- @param prevState (optional) The previous state. If provided, the menu will
+--                  provide a "Previous" option.
+-- @param ... A list of items in the menu. Use the makeToggleItem, makeRangeItem
+--            and makeBooleanItem functions to construct these.
+-- @return A state instance
 function M.makeMenu(prevState, ...)
 
    local menu = gamestate.newState(
