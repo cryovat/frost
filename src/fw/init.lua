@@ -3,10 +3,11 @@
 local M = {}
 
 --M.entity = require("fw.entity")
+M.codec     = require "fw.codec"
 M.gamestate = require "fw.gamestate"
-M.graphics = require "fw.graphics"
-M.Options = require "fw.Options"
-M.menu = require "fw.menu"
+M.graphics  = require "fw.graphics"
+M.Options   = require "fw.Options"
+M.menu      = require "fw.menu"
 
 --- Creates an Options instance
 -- @param o (optional) Table to create instance from
