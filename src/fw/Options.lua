@@ -1,4 +1,4 @@
-local util = require("fw.util")
+local menu = require("fw.menu")
 
 local Options = {}
 
@@ -61,12 +61,12 @@ function Options:createMenuItems()
 
    for _, v in pairs(self.items) do
       if v.type == "list" then
-	 menuItems[i] = util.makeToggleItem(v,"value", v.label, unpack(v.items))
+	 menuItems[i] = menu.makeToggleItem(v,"value", v.label, unpack(v.items))
       elseif v.type == "number" then
-	 menuItems[i] = util.makeRangeItem(v, "value", v.label,
+	 menuItems[i] = menu.makeRangeItem(v, "value", v.label,
 					   v.min, v.max, v.step)
       elseif v.type == "boolean" then
-	 menuItems[i] = util.makeBooleanItem(v, "value", v.label)
+	 menuItems[i] = menu.makeBooleanItem(v, "value", v.label)
       else
 	 error("Unknown menu item type!", 1)
       end

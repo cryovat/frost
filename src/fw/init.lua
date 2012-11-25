@@ -6,7 +6,7 @@ M.Sprite = require "fw.Sprite"
 M.Options = require "fw.Options"
 M.State = require "fw.State"
 M.TransitionState = require "fw.TransitionState"
-M.util = require "fw.util"
+M.menu = require "fw.menu"
 
 function M.makeSpriteFactory(atlas)
    return function()
@@ -16,6 +16,25 @@ end
 
 function M.newAtlas(imageWidth, imageHeight, countX, countY, o)
    return M.Atlas.new(imageWidth, imageHeight, countX, countY, o)
+end
+
+function M.newLevel()
+
+   local level = State.new()
+
+   function level:new(o)
+      o = o or {}
+      setmetatable(o, level)
+      self.__index = self
+
+      return o
+   end
+
+   function level:load()
+   end
+
+   return level
+
 end
 
 function M.newOptions(o)
@@ -39,6 +58,21 @@ end
 -- @param duration (optional) Transition time in seconds
 function M.fadeIn(s, duration)
    return M.TransitionState.new(nil, s, duration)
+end
+
+
+function M.loadLevel(file)
+
+   local f, level = require(file), nil
+
+   assert(type(f) == "table" and type(f["new"]) == "function",
+	  "Expected '" .. file .. "' to return a State 'class'")
+
+   level = f:new()
+   level:load()
+
+   return level
+
 end
 
 return M

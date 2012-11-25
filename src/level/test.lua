@@ -1,9 +1,6 @@
 local fw = require "fw.init"
-local u = fw.util
-local a = fw.Atlas
-local s = fw.Sprite
 
-local level = u.newLevel()
+local level = fw.newLevel()
 
 function level:load()
 

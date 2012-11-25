@@ -1,7 +1,6 @@
 local fw = require "fw.init"
-local u = fw.util
 
-local level = u.newLevel()
+local level = fw.newLevel()
 
 -- Unused functions can be safely removed below
 

@@ -1,11 +1,11 @@
 local fw = require("fw.init")
-local util = fw.util
+local menu = fw.menu
 
 a = {}
 
 local function newGame(prev)
 
-   return util.loadLevel "level/test"
+   return fw.loadLevel "level/test"
 
 end
 
@@ -17,20 +17,20 @@ local function options(prev)
 
    local optItems = a.options:createMenuItems()
 
-   return util.makeMenu(prev, unpack(optItems))
+   return menu.makeMenu(prev, unpack(optItems))
 
 end
 
 local function credits(prev)
 
-   return util.makeMenu(prev,
+   return menu.makeMenu(prev,
 			{ "Copyright, etc", nil }
 		       )
 end
 
 local function mainMenu(prev)
 
-   return util.makeMenu(nil,
+   return menu.makeMenu(nil,
 			{ "New Game", newGame },
 			{ "Options", options },
 			{ "Credits", credits },

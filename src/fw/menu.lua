@@ -14,7 +14,7 @@ local function wrap(max, min, i)
    end
 end
 
-function M.range(min, max, step)
+local function range(min, max, step)
 
    assert(type(max) == "number",
 	  "Parameter max must be a number!")
@@ -88,7 +88,7 @@ end
 function M.makeRangeItem(target, property, prefix, min, max, step)
 
    return M.makeToggleItem(target, property, prefix,
-			   unpack(M.range(min, max, step)))
+			   unpack(range(min, max, step)))
 
 end
 
@@ -178,39 +178,6 @@ function M.makeMenu(prevState, ...)
    else
       return menu
    end
-
-end
-
-function M.loadLevel(file)
-
-   local f, level = require(file), nil
-
-   assert(type(f) == "table" and type(f["new"]) == "function",
-	  "Expected '" .. file .. "' to return a State 'class'")
-
-   level = f:new()
-   level:load()
-
-   return level
-
-end
-
-function M.newLevel()
-
-   local level = State.new()
-
-   function level:new(o)
-      o = o or {}
-      setmetatable(o, level)
-      self.__index = self
-
-      return o
-   end
-
-   function level:load()
-   end
-
-   return level
 
 end
 
