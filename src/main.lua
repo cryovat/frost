@@ -1,7 +1,6 @@
 local fw = require("fw.init")
 local state = fw.state
 local util = fw.util
-local sprite = fw.sprite
 local opt = fw.options
 
 a = {}
