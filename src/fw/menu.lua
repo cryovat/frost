@@ -101,6 +101,7 @@ end
 -- @param min The minimum value
 -- @param max The maximum value
 -- @param step Incremental step
+-- @return A menu item
 function M.makeRangeItem(target, property, prefix, min, max, step)
 
    return M.makeToggleItem(target, property, prefix,
@@ -113,6 +114,7 @@ end
 -- @param target The target table
 -- @param property The id of the item in the table to read/update
 -- @param prefix The prefix of the value in the menu
+-- @return A menu item
 function M.makeBooleanItem(target, property, prefix)
 
    return M.makeToggleItem(target, property, prefix, true, false)
@@ -122,8 +124,8 @@ end
 --- Creates a State instance that provides an interactive menu to the user
 -- @param prevState (optional) The previous state. If provided, the menu will
 --                  provide a "Previous" option.
--- @param ... A list of items in the menu. Use the makeToggleItem, makeRangeItem
---            and makeBooleanItem functions to construct these.
+-- @param ... A list of items in the menu. Use the @{makeToggleItem},
+-- @{makeRangeItem} and @{makeBooleanItem} functions to construct these.
 -- @return A state instance
 function M.makeMenu(prevState, ...)
 

@@ -2,12 +2,6 @@
 
 Atlas = {}
 
---- Creates an Atlas instance
--- @param imageWidth Width of target image
--- @param imageHeight Height of target image
--- @param countX Number of horizontal tiles
--- @param countY Number of vertical tiles
--- @param o (optional) Table to create instance from
 function Atlas.new(imageWidth, imageHeight, countX, countY, o)
 
    o = o or {}
@@ -45,13 +39,15 @@ function Atlas.new(imageWidth, imageHeight, countX, countY, o)
 end
 
 --- Gets the size of the target image
--- @return Width and height in pixels
+-- @treturn number Width of image in pixels
+-- @treturn number Height of image in pixels
 function Atlas:getImageSize()
    return self.imageWidth, self.imageHeight
 end
 
 --- Gets the size of a tile
--- @return Width and height in pixels
+-- @treturn number Width of tile in pixels
+-- @treturn number Height of tile in pixels
 function Atlas:getTileSize()
    return self.tileWidth, self.tileHeight
 end
@@ -65,8 +61,8 @@ end
 
 --- Adds an animation sequence
 -- @param id The id of the sequence
--- @param tick Time in seconds per frame
--- @param ... A list of frame indices
+-- @tparam number tick Time in seconds per frame
+-- @tparam {number,...} ... A list of frame indices
 function Atlas:addSeq(id, tick, ...)
 
    assert(id, "Parameter id cannot be nil!")
@@ -88,14 +84,14 @@ function Atlas:addSeq(id, tick, ...)
 end
 
 --- Gets the first quad in the atlas
--- @return The first quad in the atlas
+-- @treturn love.graphics.Quad The first quad in the atlas
 function Atlas:getDefaultQuad()
    return self.quads[1]
 end
 
 --- Gets a single quad
--- @param id The id of the quad
--- @return A Quad, or nil if invalid id
+-- @tparam number id The id of the quad
+-- @treturn love.graphics.Quad A Quad, or nil if invalid id
 function Atlas:getQuad(id)
    return self.quads[id]
 end

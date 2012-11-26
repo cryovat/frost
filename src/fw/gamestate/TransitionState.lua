@@ -4,11 +4,6 @@ local state = require "fw.gamestate.State"
 
 TransitionState = state.new()
 
---- TransitionState constructor
--- @param old The old state to transition away from (can be null)
--- @param new The new state to transition into (cannot be null!)
--- @param duration (optional) Transition time in seconds
--- @param o (optional) Table to use as base
 function TransitionState.new(old, new, duration, o)
 
    if not new then
@@ -30,7 +25,8 @@ end
 
 
 --- Updates the transitional state
--- @param elapsed Elapsed time in seconds since last update
+-- @tparam number elapsed Elapsed time in seconds since last update
+-- @treturn fw.gamestate.State Next game state, or nil if still valid
 function TransitionState:update(elapsed)
    self.timer = self.timer + elapsed
    if self.timer > self.duration then
@@ -39,7 +35,7 @@ function TransitionState:update(elapsed)
 end
 
 --- Draws the state
--- @param alpha Alpha value used for drawing
+-- @tparam number alpha Alpha value used for drawing
 function TransitionState:draw(alpha)
    local position = math.max(0, math.min(self.timer / self.duration, 1))
 

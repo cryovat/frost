@@ -2,12 +2,6 @@
 
 local TileMap = {}
 
---- Creates a TileMap instance
--- @param atlas The texture atlas to use as tile source
--- @param image The image to use for drawing
--- @param width The width of the tile map
--- @param height The height of the tile map
--- @param o (optional) Table to create instance from
 function TileMap.new(atlas, image, width, height, o)
 
    o = o or {}
@@ -60,7 +54,7 @@ end
 -- a flat list with the ids row by row, and assumes that the row width
 -- is the same as the one the TileMap was initialized with. If the data
 -- exceeds the capacity of the tile map, it will be cropped.
--- @param ... The sequence of tile ids.
+-- @tparam {number,...} ... The sequence of tile ids.
 function TileMap:setData(...)
 
    local max, data, atlas = self.width * self.height, self.data, self.atlas
@@ -76,7 +70,7 @@ function TileMap:setData(...)
 end
 
 --- Updates the state of the tile map
--- @param e Elapsed time in seconds since last update
+-- @tparam number e Elapsed time in seconds since last update
 function TileMap:update(e)
 
 end

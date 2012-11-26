@@ -6,7 +6,7 @@ M.State = require "fw.gamestate.State"
 M.TransitionState = require "fw.gamestate.TransitionState"
 
 --- Creates a blank new level
--- @return An extended State instance
+-- @treturn fw.gamestate.State New extended @{fw.gamestate.State|State} instance
 function M.newLevel()
 
    local level = State.new()
@@ -26,23 +26,26 @@ function M.newLevel()
 
 end
 
---- Creates a State instance
--- @return A vanilla State instance
+--- Creates a new @{fw.gamestate.State|State} instance
+-- @treturn fw.gamestate.State New instance
 function M.newState(o)
    return M.State.new(o)
 end
 
---- Creates a new TransitionState
--- @param old The old state to transition away from (can be null)
--- @param new The new state to transition into (cannot be null!)
--- @param duration (optional) Transition time in seconds
+--- Creates a new @{fw.gamestate.TransitionState|TransitionState} instance
+-- @tparam fw.gamestate.State old Old state to transition from (can be null)
+-- @tparam fw.gamestate.State new New state to transition into (cannot be null!)
+-- @tparam number duration (optional) Transition time in seconds
+-- @treturn fw.gamestate.TransitionState New instance
 function M.transition(old, new, duration)
    return M.TransitionState.new(old, new, duration)
 end
 
---- Creates a new TransitionState without previous state
--- @param s The state to transition into
--- @param duration (optional) Transition time in seconds
+--- Creates a new @{fw.gamestate.TransitionState|TransitionState} instance
+-- without previous state
+-- @tparam fw.gamestate.State s The state to transition into
+-- @tparam number duration (optional) Transition time in seconds
+-- @treturn fw.gamestate.TransitionState New instance
 function M.fadeIn(s, duration)
    return M.TransitionState.new(nil, s, duration)
 end
@@ -50,8 +53,8 @@ end
 --- Loads a level from a file. The function assumes that the target
 -- file returns something that conforms to the State interface and
 -- contains a parameter-less function with the id "new".
--- @param file The name of the file to load
--- @return An instance of the State defined in the target file
+-- @tparam string file The name of the file to load
+-- @treturn fw.gamestate.State  New instance of State defined in target file
 function M.loadLevel(file)
 
    local f, level = require(file), nil
