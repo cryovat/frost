@@ -7,6 +7,7 @@ local M = {}
 M.codec     = require "fw.codec"
 M.gamestate = require "fw.gamestate"
 M.graphics  = require "fw.graphics"
+M.world     = require "fw.world"
 M.Options   = require "fw.Options"
 M.menu      = require "fw.menu"
 
