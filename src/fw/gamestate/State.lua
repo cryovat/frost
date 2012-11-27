@@ -12,11 +12,10 @@ function State.new(o)
 end
 
 --- Called when the state should update its data
--- @tparam number elapsed Time since last update as decimal
+-- @tparam number elapsed Seconds since last update as decimal
 -- @treturn fw.gamestate.State Next game state, or nil if still valid
 function State:update(elapsed)
 end
-
 --- Called when the state level should draw itself
 -- @tparam number alpha Alpha value to use for drawing
 function State:draw(alpha)
