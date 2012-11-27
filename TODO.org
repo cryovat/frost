@@ -1,0 +1,23 @@
+* Framework
+  * Loading
+    - [ ] Write initial version of Tiled map importer
+  * User interface
+    - [ ] Simple concept for HUD
+    - [ ] Text box/conversation view
+  * Scripting
+    - [ ] Explore coroutines/_ENV for scripting
+    - [ ] Script loading
+      - love.filesystem.load -> set env?
+    - [ ] Find out how to integrate with scene
+  * World/scene
+    * [ ] General
+      - [ ] Camera concept
+    * [ ] EntityLayer
+      - [ ] Work out design for Entity type
+      - [ ] Concept for "entity factory"
+      - [ ] Collisions between entities (spatial hashing? quadtree?)
+    * [ ] ShapeLayer
+      - [ ] Optimize implementation (spatial hashing? quadtree?)
+      - [ ] Consider adding support for polygon shapes
+  * Docs
+    * [ ] Make references to time, alpha, etc more consistant
