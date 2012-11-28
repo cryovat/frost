@@ -73,6 +73,7 @@ end
 -- @tparam number e Elapsed time in seconds since last update
 function TileMap:update(e)
 
+
 end
 
 --- Draws the tilemap
