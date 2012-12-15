@@ -6,8 +6,8 @@ function love.conf(t)
     t.version = "0.8.0"
     t.console = true
     t.release = false
-    t.screen.width = 320
-    t.screen.height = 240
+    t.screen.width = 640
+    t.screen.height = 480
     t.screen.fullscreen = false
     t.screen.vsync = true
     t.screen.fsaa = 0
