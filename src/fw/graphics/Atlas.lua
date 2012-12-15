@@ -16,19 +16,16 @@ function Atlas.new(imageWidth, imageHeight, countX, countY, o)
    o.quads = {}
    o.sequences = {}
 
-   local i = 1
-
    for x=0,(countX-1) do
       for y=0, (countY-1) do
-	 o.quads[i] = love.graphics.newQuad(
+
+	 o.quads[(y * countX + x) + 1] = love.graphics.newQuad(
 	    o.tileWidth * x,
 	    o.tileHeight * y,
 	    o.tileWidth,
 	    o.tileHeight,
 	    imageWidth,
 	    imageHeight)
-
-	 i = i + 1
       end
    end
 
