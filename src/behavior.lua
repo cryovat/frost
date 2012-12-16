@@ -113,7 +113,7 @@ function M.mainChar(l, entity)
       local ox, oy = entity:getPosition()
       local x, y = ox, oy
 
-      if dead then
+      if dead or love.keyboard.isDown("r") then
 	 l:scheduleRespawnPlayer(respawn_delay)
 	 return false, x, y
       end
