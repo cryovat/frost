@@ -18,10 +18,6 @@ end
 
 local function loadEntities(level, width, height, data, assets, exits)
 
-   print(#data)
-
-   print("Loading entities")
-
    for x=0,width-1 do
       for y=0, height-1 do
 	 local n = data[(y * width + x) + 1]
@@ -117,8 +113,7 @@ function M.loadMap(levelName, assets, entry)
 
       for i,_ in pairs(behavior.directions) do
 	 if p[i] then
-	    exits[i] = function () print(i);
-	       return M.loadMap(p[i], assets, i) end
+	    exits[i] = function () return M.loadMap(p[i], assets, i) end
 	 end
       end
 

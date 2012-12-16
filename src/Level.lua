@@ -57,8 +57,6 @@ function Level.new(bg, properties, sprite_image, playerMaker)
       o.exits[i] = false
    end
 
-   print("Size: " .. bg:getSize())
-
    setmetatable(o,Level)
    Level.__index = Level
 
@@ -72,15 +70,11 @@ end
 
 function Level:addEntity(e)
 
-   print(e)
-
    local en = assert(e, "Entity cannot be nil!")
 
    en.level_next = self.firstEntity
 
    self.firstEntity = en
-
-   print("Added", en:getType(), en, "Next:",  en.level_next)
 
 end
 
@@ -263,7 +257,6 @@ function Level:update(e)
 	 last = current
 	 current = current.level_next
       else
-	 print("Deleting")
 	 if self.firstEntity == current then
 	    self.firstEntity = current.level_next
 	    current = current.level_next

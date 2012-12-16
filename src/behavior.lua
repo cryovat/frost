@@ -52,7 +52,6 @@ function M.acid(l, entity)
    end
 
    function entity:init()
-      print(self:getPosition())
    end
 
 end
@@ -68,7 +67,6 @@ function M.spike(l, entity)
    end
 
    function entity:init()
-      print(self:getPosition())
    end
 
 end
