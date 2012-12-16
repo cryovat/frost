@@ -13,7 +13,7 @@ function Sprite.new(atlas, o)
    Sprite.__index = Sprite
 
    o.atlas = atlas
-   o:setAnim("default")
+   --o:setAnim("default")
 
    local tileW, tileH = atlas:getTileSize()
 
@@ -27,9 +27,13 @@ end
 --- Sets the current animation
 -- @param id The id of the new animation sequence
 function Sprite:setAnim(id)
-   self.counter = 0
-   self.current = 1
-   self.currentSeq = self.atlas:getSeq(id)
+   if self.currentId ~= id then
+      self.counter = 0
+      self.current = 1
+      self.currentId = id
+      self.currentSeq = assert(self.atlas:getSeq(id),
+			       "Unknown sequence: " .. id)
+   end
 end
 
 --- Updates the animation state of the sprite

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="13" tilewidth="16" tileheight="16">
  <properties>
-  <property name="east" value="level3"/>
+  <property name="east" value="level7"/>
   <property name="north" value=""/>
   <property name="south" value=""/>
-  <property name="west" value="level1"/>
+  <property name="west" value="level5"/>
  </properties>
  <tileset firstgid="1" name="objects" tilewidth="16" tileheight="16">
   <image source="objects.png" width="128" height="128"/>
@@ -14,12 +14,12 @@
  </tileset>
  <layer name="Background" width="20" height="13">
   <data encoding="base64" compression="zlib">
-   eJzNkUsOgCAMRIue1s+1WOsVSOpar6BexJJAopOWEN24eBGmzFhKIKLwY3z6Muhc0NjYeziLXk0v1d7kMdl3wDwtH/3azLRMazY18/NKHq5r3xI9cd8J/Ye8QRiN/jysrX+U6pMwG73X9Jz9ea6rsCXvkrRdOIQTvJqe/SHVkHjWOaJGaN0zQ9PvXPzRvh8=
+   eJzNkE0OQDAQhaccl5vgJAhXsKBLroCLGMlM0jSvZVGJxZd68b3nxxLRlAgr3NfLw/nGcff8LspPztfvl/L//XmvYEpwvxE0V0wNPO3r3sCMwOsFzS3TAU/7urcyG/B25ozkWU7tW3EOB9c3hig34Yy6t5M5xPoo+93Qnv9s9A2oewEvRbBr
   </data>
  </layer>
  <layer name="Entities" width="20" height="13" opacity="0.31">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AU0BOwQDEyYEXCbEgYWRwGmKEYXR81MAAx5ACj
+   eJxjYBgFo2B4ARYoRgesUIyLDwPMUIyshhWPelwAm150/TA+BwEaWS26+ehibHjsZkVTg64XAHYQANE=
   </data>
  </layer>
 </map>

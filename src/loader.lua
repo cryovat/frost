@@ -16,37 +16,49 @@ local function loadTiles(width, height, data, assets)
 
 end
 
-local function loadEntities(level, width, height, data, assets)
+local function loadEntities(level, width, height, data, assets, exits)
 
    print(#data)
 
    print("Loading entities")
 
-   local tilex, tiley = assets.atlas:getTileSize()
-
    for x=0,width-1 do
       for y=0, height-1 do
-	 local n, posX, posY = data[(y * width + x) + 1], x * tilex, y * tiley
+	 local n = data[(y * width + x) + 1]
 
+	 -- Suggested coordinates
+	 local sx, sy = Level.convertGridCoords(x,y)
 
 	 if n == 0 then
 	    -- Noop
-	 elseif n == 1 then
-	    print("Northern exit at " .. x .. "x" ..y)
-	 elseif n == 2 then
-	    print("Southern exit at " .. x .. "x" ..y)
-	 elseif n == 3 then
-	    print("Eastern exit at " .. x .. "x" ..y)
-	 elseif n == 4 then
-	    print("Western exit at " .. x .. "x" ..y)
+	 elseif n == 1 then -- Northern exit
+	    level:addExit(x, y, exits[behavior.directions.north])
+	 elseif n == 2 then -- Southern exit
+	    level:addExit(x, y, exits[behavior.directions.south])
+	 elseif n == 3 then -- Eastern exit
+	    level:addExit(x, y, exits[behavior.directions.east])
+	 elseif n == 4 then -- Western exit
+	    level:addExit(x, y, exits[behavior.directions.west])
 	 elseif n == 5 then -- Wall
 	    level:toggleBlocked(x, y, true)
 	 elseif n == 6 then
-	    print("Spike death at " .. x .. "x" ..y)
+	    local s = fw.graphics.newSprite(assets.chatlas)
+	    s:setAnim("spike_idle")
+	    local ent = Entity.new(s, sx, sy, 0, -8)
+	    level:addEntity(ent)
+	    behavior.spike(level, ent)
 	 elseif n == 7 then
-	    print("Acid death at " .. x .. "x" ..y)
-	 elseif n == 8 then
-	    print("Angry robot at " .. x .. "x" ..y)
+	    local s = fw.graphics.newSprite(assets.chatlas)
+	    s:setAnim("spike_idle")
+	    local ent = Entity.new(s, sx, sy, 0, -8)
+	    level:addEntity(ent)
+	    behavior.acid(level, ent)
+	 elseif n == 8 then -- Robot
+	    local s = fw.graphics.newSprite(assets.chatlas)
+	    s:setAnim("robot_right")
+	    local ent = Entity.new(s, sx, sy, 0, -8)
+	    level:addEntity(ent)
+	    behavior.robot(level, ent)
 	 elseif n == 9 then
 	    print("Coin pickup at " .. x .. "x" ..y)
 	 elseif n == 10 then
@@ -54,32 +66,63 @@ local function loadEntities(level, width, height, data, assets)
 	 elseif n == 11 then
 	    print("Locked door at " .. x .. "x" ..y)
 	 elseif n == 12 then
+	    level:setPlayerSpawn(sx, sy)
+	 elseif n == 13 then -- Damsel
 	    local s = fw.graphics.newSprite(assets.chatlas)
-	    s:setAnim("evil_idle")
-	    local ent = Entity.new(s, posX, posY, 0, -8)
+	    s:setAnim("girl_idle")
+	    local ent = Entity.new(s, sx, sy, 0, -8)
 	    level:addEntity(ent)
-	    behavior.mainChar(level, ent)
+	    behavior.damsel(level, ent)
+	 elseif n == 14 then -- Hero
+	    print("Hero at " .. x .. "x" ..y)
+	 elseif n == 15 then -- Vicimspawner
+	    local s = fw.graphics.newSprite(assets.chatlas)
+	    s:setAnim("spawner_closed")
+	    local ent = Entity.new(s, sx, sy, 0, -8)
+	    level:addEntity(ent)
+	    behavior.spawner(level, ent, assets)
 	 end
-
-	-- o.quads[y * countX + x] = love.graphics.newQuad(
-	--    o.tileWidth * x,
-	--    o.tileHeight * y,
-	--    o.tileWidth,
-	--    o.tileHeight,
-	--    imageWidth,
-	--    imageHeight)
-
-	-- i = i + 1
 
       end
    end
 
 end
 
-function M.loadMap(levelName, assets)
+local function makePlayerFactory(assets)
+
+   local f = function(level, x,y)
+
+      local s = fw.graphics.newSprite(assets.chatlas)
+
+      s:setAnim("evil_right_idle")
+      local ent = Entity.new(s, x, y, 0, -8)
+      behavior.mainChar(level, ent)
+
+      return ent
+
+   end
+
+   return f
+
+end
+
+function M.loadMap(levelName, assets, entry)
 
    local ldata = love.filesystem.load("assets/" .. levelName .. ".lua")()
    local tiles_norm, objects_norm, bg, entities, l, e = 0, 0, nil, nil, nil, nil
+
+   local p, exits = ldata.properties, {}
+
+   if p then
+
+      for i,_ in pairs(behavior.directions) do
+	 if p[i] then
+	    exits[i] = function () print(i);
+	       return M.loadMap(p[i], assets, i) end
+	 end
+      end
+
+   end
 
    for i,v in ipairs(ldata.tilesets) do
 
@@ -105,9 +148,27 @@ function M.loadMap(levelName, assets)
 
    end
 
-   l = Level.new(bg, a.charas)
+   local playerMaker = makePlayerFactory(assets)
 
-   loadEntities(l, e.width, e.height, e.data, assets)
+   l = Level.new(bg, ldata.properties, a.charas, playerMaker)
+
+   loadEntities(l, e.width, e.height, e.data, assets, exits)
+
+   l:init()
+
+   if entry then
+      local flipped = behavior.flipDir(entry)
+      local exitf = assert(exits[flipped],
+			   "Exit " .. flipped .. " not found in " .. levelName)
+
+      local ex, ey = l:findExitCoords(exitf)
+      local sx, sy = Level.convertGridCoords(ex, ey)
+
+      l:setPlayerSpawn(sx, sy)
+
+   end
+
+   l:respawnPlayer()
 
    return l
 
