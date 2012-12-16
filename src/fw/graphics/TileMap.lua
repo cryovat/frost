@@ -50,6 +50,33 @@ function TileMap:updateBatch()
 
 end
 
+--- Gets the size of a single tile within the tilemap
+-- @treturn number Width of tile in pixels
+-- @treturn number Height of tile in pixels
+function TileMap:getTileSize()
+   return self.atlas:getTileSize()
+end
+
+--- Gets the width of the TileMap
+-- @treturn number Width in number of tiles
+function TileMap:getWidth()
+   return self.width
+end
+
+--- Gets the height of the Tilemap
+-- @treturn number Height in number of tiles
+function TileMap:getHeight()
+   return self.height
+end
+
+--- Gets the size of the TileMap
+-- @treturn number The number of tiles (x * y)
+function TileMap:getSize()
+
+   return #self.data
+
+end
+
 --- Sets the tile data, starting at the first tile. The function expects
 -- a flat list with the ids row by row, and assumes that the row width
 -- is the same as the one the TileMap was initialized with. If the data

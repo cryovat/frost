@@ -44,7 +44,7 @@ end
 
 function love.load()
 
-   local o, tw, th = fw.newOptions(), -1, -1
+   local o, tw, th, cw, ch = fw.newOptions(), -1, -1, -1, -1
    o:addBoolean("musicOn", "Music enabled", true)
    o:addBoolean("soundOn", "Sound effects enabled", true)
    a.options = o
@@ -58,7 +58,17 @@ function love.load()
 
    a.atlas = fw.graphics.newAtlas(tw, th, tw / a.tileWidth, th / a.tileHeight)
 
-   gs = fw.gamestate.fadeIn(mainMenu(nil), 1)
+   a.charas = love.graphics.newImage("assets/charas.png")
+   cw = a.charas:getWidth()
+   ch = a.charas:getHeight()
+
+   a.chatlas = fw.graphics.newAtlas(cw, ch, 4, 4)
+   a.chatlas:addSeq("evil_idle", 1, 1)
+   a.chatlas:addSeq("hero_idle", 1, 5)
+   a.chatlas:addSeq("girl_idle", 1, 9)
+
+   --gs = fw.gamestate.fadeIn(mainMenu(nil), 1)
+   gs = newGame(nil)
 end
 
 function love.update(e)

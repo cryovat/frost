@@ -1,6 +1,9 @@
 local fw = require "fw.init"
+local behavior = require "behavior"
+local Level = require "Level"
+local Entity = require "Entity"
 
-M = {}
+local M = {}
 
 local function loadTiles(width, height, data, assets)
 
@@ -13,13 +16,21 @@ local function loadTiles(width, height, data, assets)
 
 end
 
-local function loadEntities(width, height, data, assets)
+local function loadEntities(level, width, height, data, assets)
+
+   print(#data)
+
+   print("Loading entities")
+
+   local tilex, tiley = assets.atlas:getTileSize()
 
    for x=0,width-1 do
       for y=0, height-1 do
-	 local n = data[(y * width + x) + 1]
+	 local n, posX, posY = data[(y * width + x) + 1], x * tilex, y * tiley
+
 
 	 if n == 0 then
+	    -- Noop
 	 elseif n == 1 then
 	    print("Northern exit at " .. x .. "x" ..y)
 	 elseif n == 2 then
@@ -28,8 +39,8 @@ local function loadEntities(width, height, data, assets)
 	    print("Eastern exit at " .. x .. "x" ..y)
 	 elseif n == 4 then
 	    print("Western exit at " .. x .. "x" ..y)
-	 elseif n == 5 then
-	    print("Wall at " .. x .. "x" ..y)
+	 elseif n == 5 then -- Wall
+	    level:toggleBlocked(x, y, true)
 	 elseif n == 6 then
 	    print("Spike death at " .. x .. "x" ..y)
 	 elseif n == 7 then
@@ -42,6 +53,12 @@ local function loadEntities(width, height, data, assets)
 	    print("Key at " .. x .. "x" ..y)
 	 elseif n == 11 then
 	    print("Locked door at " .. x .. "x" ..y)
+	 elseif n == 12 then
+	    local s = fw.graphics.newSprite(assets.chatlas)
+	    s:setAnim("evil_idle")
+	    local ent = Entity.new(s, posX, posY, 0, -8)
+	    level:addEntity(ent)
+	    behavior.mainChar(level, ent)
 	 end
 
 	-- o.quads[y * countX + x] = love.graphics.newQuad(
@@ -61,10 +78,10 @@ end
 
 function M.loadMap(levelName, assets)
 
-   local level = love.filesystem.load("assets/" .. levelName .. ".lua")()
-   local tiles_norm, objects_norm, bg, entities, l = 0, 0, nil, nil, nil
+   local ldata = love.filesystem.load("assets/" .. levelName .. ".lua")()
+   local tiles_norm, objects_norm, bg, entities, l, e = 0, 0, nil, nil, nil, nil
 
-   for i,v in ipairs(level.tilesets) do
+   for i,v in ipairs(ldata.tilesets) do
 
       if (v.name == "tiles") and v.firstgid ~= 1 then
 	 tiles_norm = (v.firstgid * -1) + 1
@@ -73,7 +90,7 @@ function M.loadMap(levelName, assets)
       end
    end
 
-   for i,v in ipairs(level.layers) do
+   for i,v in ipairs(ldata.layers) do
 
       if (v.name == "Background") then
 
@@ -83,22 +100,14 @@ function M.loadMap(levelName, assets)
 
 	 bg = loadTiles(v.width, v.height, v.data, assets)
       elseif (v.name == "Entities") then
-	 entities = loadEntities(v.width, v.height, v.data, assets)
+	 e = v
       end
 
    end
 
-   l = fw.gamestate.newState()
+   l = Level.new(bg, a.charas)
 
-   function l:update(e)
-
-   end
-
-   function l:draw(alpha)
-
-      bg:draw()
-
-   end
+   loadEntities(l, e.width, e.height, e.data, assets)
 
    return l
 
