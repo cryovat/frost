@@ -78,6 +78,8 @@ function love.load()
    a.chatlas:addSeq("spawner_open", 1, 27)
    a.chatlas:addSeq("victim_falling", 0.5, 41,42,43,44,45,46)
 
+   a.particle = love.graphics.newImage("assets/particle.png")
+
    --gs = fw.gamestate.fadeIn(mainMenu(nil), 1)
    gs = mainMenu(nil)
 end

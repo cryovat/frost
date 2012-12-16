@@ -32,7 +32,7 @@ function Level.convertGridCoords(x, y)
    return x * tileW + tileWo2, y * tileH + tileHo2
 end
 
-function Level.new(bg, properties, sprite_image, playerMaker)
+function Level.new(bg, properties, sprite_image, particle_image, playerMaker)
 
    o = o or {}
    o.bg = assert(bg, "Background tilemap must be provided!")
@@ -41,11 +41,22 @@ function Level.new(bg, properties, sprite_image, playerMaker)
    o.debug = false
    o.firstEntity = nil
    o.batch = love.graphics.newSpriteBatch(sprite_image, 100)
+   o.ps = love.graphics.newParticleSystem(particle_image, 400)
    o.properties = properties or {}
    o.nextLevelFactory = false
    o.spawn = { x = tileW; y = 0}
    o.playerMaker = playerMaker
    o.respawnCounter = false
+
+   local ps = o.ps
+   ps:setEmissionRate(80)
+   ps:setLifetime(0.5)
+   ps:setParticleLife(1)
+   ps:setSizeVariation(0)
+   ps:setSpeed(10,30)
+   ps:setSpread(6.24)
+   ps:setSizes(0.1, 0.3, 0.6, 0.8)
+   ps:stop()
 
    o.minX = 0
    o.maxX = tileW * bg:getWidth()
@@ -169,6 +180,15 @@ function Level:setNext(name, spawn)
 
 end
 
+function Level:makeSparks(x, y, r, g, b, a)
+
+   self.ps:setPosition(x ,y)
+   self.ps:setColors(r, g, b, a)
+
+   self.ps:start()
+
+end
+
 function Level:toggleBlocked(x, y, blocked)
    self.blocked[(y * self.bg:getWidth() + x) + 1] = blocked
 end
@@ -230,6 +250,8 @@ function Level:update(e)
    if self.nextLevelFactory then
       return self.nextLevelFactory()
    end
+
+   self.ps:update(e)
 
    if self.respawnCounter then
       self.respawnCounter = self.respawnCounter - e
@@ -312,6 +334,8 @@ function Level:draw(alpha)
    end
 
    love.graphics.draw(batch)
+
+   love.graphics.draw(self.ps)
 
    if self.debug then
 

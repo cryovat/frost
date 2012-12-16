@@ -151,7 +151,7 @@ function M.loadMap(levelName, assets, entry)
 
    local playerMaker = makePlayerFactory(assets)
 
-   l = Level.new(bg, ldata.properties, a.charas, playerMaker)
+   l = Level.new(bg, ldata.properties, a.charas, a.particle, playerMaker)
 
    loadEntities(l, e.width, e.height, e.data, assets, exits)
 

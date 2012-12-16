@@ -25,6 +25,13 @@ M.directions = {
    west="west"
 }
 
+M.explosions = {
+   blood={255,0,0,255},
+   spark={0,255,255,255},
+   acid={0,190,60,255},
+   smoke={190,190,190,255}
+}
+
 function M.flipDir(dir)
 
    if dir == "north" then
@@ -119,12 +126,20 @@ function M.mainChar(l, entity)
       local ot =  other:getType()
 
       if ot == M.types.spike then
+	 local x, y = entity:getPosition()
+	 l:makeSparks(x,y, unpack(M.explosions.blood))
 	 dead = true
       elseif ot == M.types.acid then
+	 local x, y = entity:getPosition()
+	 l:makeSparks(x,y, unpack(M.explosions.acid))
 	 dead = true
       elseif ot == M.types.victim then
+	 local x, y = entity:getPosition()
+	 l:makeSparks(x,y, unpack(M.explosions.smoke))
 	 dead = true
       elseif ot == M.types.robot then
+	 local x, y = entity:getPosition()
+	 l:makeSparks(x,y, unpack(M.explosions.spark))
 	 dead = true
       elseif ot == M.types.endBlock then
 	 l:replaceLevel(Endscreen.new)
@@ -265,8 +280,12 @@ function M.victim(l, entity)
 
    function entity:fondle(other)
       if other:getType() == M.types.spike then
+	 local x, y = entity:getPosition()
+	 l:makeSparks(x,y, unpack(M.explosions.blood))
 	 dead = true
       elseif other:getType() == M.types.acid then
+	 local x, y = entity:getPosition()
+	 l:makeSparks(x,y, unpack(M.explosions.acid))
 	 dead = true
       end
    end
