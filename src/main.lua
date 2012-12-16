@@ -79,7 +79,7 @@ function love.load()
    a.chatlas:addSeq("victim_falling", 0.5, 41,42,43,44,45,46)
 
    --gs = fw.gamestate.fadeIn(mainMenu(nil), 1)
-   gs = newGame(nil)
+   gs = mainMenu(nil)
 end
 
 function love.update(e)

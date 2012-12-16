@@ -77,6 +77,12 @@ local function loadEntities(level, width, height, data, assets, exits)
 	    local ent = Entity.new(s, sx, sy, 0, -8)
 	    level:addEntity(ent)
 	    behavior.spawner(level, ent, assets)
+	 elseif n == 16 then -- Endblock
+	    local s = fw.graphics.newSprite(assets.chatlas)
+	    s:setAnim("spike_idle")
+	    local ent = Entity.new(s, sx, sy, 0, -8)
+	    level:addEntity(ent)
+	    behavior.endBlock(level, ent, assets)
 	 end
 
       end

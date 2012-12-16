@@ -1,5 +1,6 @@
 local fw = require "fw.init"
 local Entity = require "Entity"
+local Endscreen = require "Endscreen"
 local M = {}
 
 local player_speed, player_jump_speed, player_gravity  = 60, 80, 60
@@ -13,7 +14,8 @@ M.types = {
    damsel="damsel";
    spawner="spanwer";
    victim = "victim";
-   robot = "robot"
+   robot = "robot";
+   endBlock = "endBlock"
 }
 
 M.directions = {
@@ -33,6 +35,25 @@ function M.flipDir(dir)
       return "west"
    else
       return "east"
+   end
+
+end
+
+function M.endBlock(l, entity)
+
+   function entity:getType()
+      return M.types.endBlock
+   end
+
+   function entity:isVisible()
+      return false
+   end
+
+   function entity:isFondlable()
+      return true
+   end
+
+   function entity:init()
    end
 
 end
@@ -105,6 +126,8 @@ function M.mainChar(l, entity)
 	 dead = true
       elseif ot == M.types.robot then
 	 dead = true
+      elseif ot == M.types.endBlock then
+	 l:replaceLevel(Endscreen.new)
       end
    end
 

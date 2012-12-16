@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="13" tilewidth="16" tileheight="16">
+ <properties>
+  <property name="east" value=""/>
+  <property name="north" value=""/>
+  <property name="south" value=""/>
+  <property name="west" value="level7"/>
+ </properties>
+ <tileset firstgid="1" name="objects" tilewidth="16" tileheight="16">
+  <image source="objects.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="65" name="tiles" tilewidth="16" tileheight="16">
+  <image source="tiles.png" width="512" height="128"/>
+ </tileset>
+ <layer name="Background" width="20" height="13">
+  <data encoding="base64" compression="zlib">
+   eJyt0TsOgUEUxfFhc9ZBJPaBUIgNeBsShQi191RKau9YiX9xilt83XeLX2Zyi5M7Z1IIoYwKGg6S1B3zWogoOeyZjJrDnjav7ZQ31blw3u+SM6+a0V/M8SfNjP6SMmdis3voY4AhRhhjYvK6WGOj/jqaJd2jydtihz0OOOKEs8lb4Yqb+ltqlnS377/jgSdeeOODr7qb4+esWPD1B958jz8=
+  </data>
+ </layer>
+ <layer name="Entities" width="20" height="13" opacity="0.31">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4A2QAAPHkrmsUAxNcxjpTKmNgAATyYCLQ==
+  </data>
+ </layer>
+</map>
