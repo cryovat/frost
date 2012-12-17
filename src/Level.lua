@@ -79,6 +79,10 @@ function Level:replaceLevel(nextFactory)
    self.nextLevelFactory = nextFactory
 end
 
+function Level:getOffset()
+   return 0, -240
+end
+
 function Level:addEntity(e)
 
    local en = assert(e, "Entity cannot be nil!")

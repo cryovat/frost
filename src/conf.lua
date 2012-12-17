@@ -1,5 +1,5 @@
 function love.conf(t)
-    t.title = "You are the Villain - LD 25 by Cryovat"
+    t.title = "Lord Evil's Daring Escape"
     t.author = "Cryovat"
     t.url = "http://winterday.net"
     t.identity = "ld25cryovat"

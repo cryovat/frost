@@ -1,12 +1,13 @@
 local fw = require "fw.init"
 local menu = fw.menu
 local loader = require "loader"
+local Storyscreen = require "Storyscreen"
 
 a = {}
 
 local function newGame(prev)
 
-   return loader.loadMap("level1", a)
+   return Storyscreen.new(a)
 
 end
 
@@ -45,9 +46,14 @@ end
 function love.load()
 
    local o, tw, th, cw, ch = fw.newOptions(), -1, -1, -1, -1
-   o:addBoolean("musicOn", "Music enabled", true)
    o:addBoolean("soundOn", "Sound effects enabled", true)
    a.options = o
+
+   a.title = {
+      img=love.graphics.newImage("assets/title.png");
+      x = 0;
+      y= 0;
+   }
 
    a.tiles = love.graphics.newImage("assets/tiles.png")
    tw = a.tiles:getWidth()
@@ -93,6 +99,15 @@ end
 
 function love.draw()
    love.graphics.setColor(255,255,255,255)
+
+   if (gs["getOffset"]) then
+      local nx, ny = gs:getOffset()
+      a.title.x = nx
+      a.title.y = ny
+   end
+
+   love.graphics.draw(a.title.img, a.title.x, a.title.y)
+
    gs:draw(255)
 
    love.graphics.setColor(255,255,255,255)
