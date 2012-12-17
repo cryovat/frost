@@ -29,7 +29,8 @@ local function credits(prev)
    return menu.makeMenu(prev,
 			{ "Code and graphics: Cryovat", nil },
 			{ "Engine: http://www.love2d.org" },
-			{ "Made for Ludum Dare 25"}
+			{ "Sound: sfxr" },
+			{ "Made for Ludum Dare 25 Jam"}
 		       )
 end
 
