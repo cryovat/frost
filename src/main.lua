@@ -126,9 +126,7 @@ function love.mousereleased(x, y, button)
 end
 
 function love.keypressed(key, unicode)
-   if key == "rctrl" then
-      debug.debug()
-   elseif gs and gs.keypressed then
+   if gs and gs.keypressed then
       gs:keypressed(key, unicode)
    end
 end
