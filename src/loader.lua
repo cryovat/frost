@@ -98,7 +98,7 @@ local function makePlayerFactory(assets)
 
       s:setAnim("evil_right_idle")
       local ent = Entity.new(s, x, y, 0, -8)
-      behavior.mainChar(level, ent)
+      behavior.mainChar(level, ent, assets.sound)
 
       return ent
 
@@ -119,7 +119,10 @@ function M.loadMap(levelName, assets, entry)
 
       for i,_ in pairs(behavior.directions) do
 	 if p[i] then
-	    exits[i] = function () return M.loadMap(p[i], assets, i) end
+	    exits[i] = function ()
+	       assets.sound:play("door")
+	       return M.loadMap(p[i], assets, i)
+	    end
 	 end
       end
 

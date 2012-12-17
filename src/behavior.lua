@@ -99,7 +99,7 @@ function M.spike(l, entity)
 
 end
 
-function M.mainChar(l, entity)
+function M.mainChar(l, entity, sound)
 
    local jumpM, can_jump, lastY, inExit, dead = 0, true, -1, false, false
 
@@ -128,20 +128,25 @@ function M.mainChar(l, entity)
       if ot == M.types.spike then
 	 local x, y = entity:getPosition()
 	 l:makeSparks(x,y, unpack(M.explosions.blood))
+	 sound:play("death")
 	 dead = true
       elseif ot == M.types.acid then
 	 local x, y = entity:getPosition()
 	 l:makeSparks(x,y, unpack(M.explosions.acid))
+	 sound:play("death")
 	 dead = true
       elseif ot == M.types.victim then
 	 local x, y = entity:getPosition()
 	 l:makeSparks(x,y, unpack(M.explosions.smoke))
+	 sound:play("thud")
 	 dead = true
       elseif ot == M.types.robot then
 	 local x, y = entity:getPosition()
 	 l:makeSparks(x,y, unpack(M.explosions.spark))
+	 sound:play("robodeath")
 	 dead = true
       elseif ot == M.types.endBlock then
+	 sound:play("victory")
 	 l:replaceLevel(Endscreen.new)
       end
    end
@@ -176,6 +181,7 @@ function M.mainChar(l, entity)
       if love.keyboard.isDown("z") and jumpM == 0 and can_jump then
 
 	 jumpM = player_jump_speed
+	 sound:play("jump")
 
       elseif jumpM > 0 then
 
@@ -262,7 +268,7 @@ function M.robot(l, entity)
 
 end
 
-function M.victim(l, entity)
+function M.victim(l, entity, sound)
 
    local dead = false
 
@@ -282,10 +288,12 @@ function M.victim(l, entity)
       if other:getType() == M.types.spike then
 	 local x, y = entity:getPosition()
 	 l:makeSparks(x,y, unpack(M.explosions.blood))
+	 sound:play("death")
 	 dead = true
       elseif other:getType() == M.types.acid then
 	 local x, y = entity:getPosition()
 	 l:makeSparks(x,y, unpack(M.explosions.acid))
+	 sound:play("death")
 	 dead = true
       end
    end
@@ -318,7 +326,7 @@ function M.spawner(l, entity, assets)
       local s = fw.graphics.newSprite(assets.chatlas)
       s:setAnim("victim_falling")
       local ent = Entity.new(s, x, y, 0, -8)
-      M.victim(l, ent)
+      M.victim(l, ent, assets.sound)
       l:addEntity(ent)
    end
 
@@ -343,6 +351,7 @@ function M.spawner(l, entity, assets)
       elseif state == state_opening then
 	 timer = 0.5
 	 spawnDude()
+	 assets.sound:play("spawn")
 	 state = state_closing
       elseif state == state_closing then
 	 self:setAnim("spawner_closed")

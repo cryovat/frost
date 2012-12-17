@@ -2,6 +2,7 @@ local fw = require "fw.init"
 local menu = fw.menu
 local loader = require "loader"
 local Storyscreen = require "Storyscreen"
+local Soundhelper = require "Soundhelper"
 
 a = {}
 
@@ -48,6 +49,8 @@ function love.load()
    local o, tw, th, cw, ch = fw.newOptions(), -1, -1, -1, -1
    o:addBoolean("soundOn", "Sound effects enabled", true)
    a.options = o
+
+   a.sound = Soundhelper.new(o)
 
    a.title = {
       img=love.graphics.newImage("assets/title.png");
