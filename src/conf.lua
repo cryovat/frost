@@ -4,8 +4,8 @@ function love.conf(t)
     t.url = "http://winterday.net"
     t.identity = "ld25cryovat"
     t.version = "0.8.0"
-    t.console = true
-    t.release = false
+    t.console = false
+    t.release = true
     t.screen.width = 320
     t.screen.height = 240
     t.screen.fullscreen = false
