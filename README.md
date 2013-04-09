@@ -24,7 +24,7 @@ Dependencies
 
 For development aid:
 
- * [LDoc](https://github.com/stevedonovan/LDoc) by (stevedonovan)[https://github.com/stevedonovan]
+ * [LDoc](https://github.com/stevedonovan/LDoc) by [stevedonovan](https://github.com/stevedonovan)
  * bash, iwatch, lua 5.1
 
 Games
@@ -32,7 +32,7 @@ Games
 
 Games known to be using Frost:
 
- * (Lord Evil's Daring Escape)[https://github.com/cryovat/lord-evil-game]
+ * [Lord Evil's Daring Escape](https://github.com/cryovat/lord-evil-game)
 
 Work environment
 ----------------
