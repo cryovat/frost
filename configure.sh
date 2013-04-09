@@ -6,5 +6,3 @@ if [ ! -d "external/ldoc" ]; then
     git clone https://github.com/stevedonovan/LDoc.git external/ldoc
 fi
 
-# Generate docs for the first time
-lua external/ldoc/ldoc.lua src
