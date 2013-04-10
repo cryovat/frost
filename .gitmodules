@@ -1,0 +1,3 @@
+[submodule "external/ldoc"]
+	path = external/ldoc
+	url = https://github.com/stevedonovan/LDoc

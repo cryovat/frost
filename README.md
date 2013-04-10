@@ -37,14 +37,6 @@ Games known to be using Frost:
 Work environment
 ----------------
 
-The following shell commands should clone the frost repo, pull down
-dependencies and configure a proper development environment. The script assumes
-an Unix-like environment.
-
-    git clone https://github.com/cryovat/frost
-    cd frost
-    ./configure.sh
-
 To monitor source directory and regenerate documentation upon source
 file changes (requires iwatch and lua 5.1):
 
