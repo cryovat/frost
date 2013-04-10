@@ -25,7 +25,7 @@ Dependencies
 For development aid:
 
  * [LDoc](https://github.com/stevedonovan/LDoc) by [stevedonovan](https://github.com/stevedonovan)
- * bash, iwatch, lua 5.1
+ * GNU Make, bash, iwatch, lua 5.1
 
 Games
 -----
@@ -38,6 +38,15 @@ Work environment
 ----------------
 
 To monitor source directory and regenerate documentation upon source
-file changes (requires iwatch and lua 5.1):
+file changes (requires GNU Make, iwatch and lua 5.1):
 
-    ./docmon.sh
+    make watch
+
+To run:
+
+    make run
+
+To run in a sanity-preserving manner (without updating all the submodules
+every time):
+
+    make fastrun
